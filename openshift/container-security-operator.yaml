@@ -4,16 +4,6 @@ kind: Template
 metadata:
   name: container-security-operator
 objects:
-- apiVersion: operators.coreos.com/v1alpha1
-  kind: CatalogSource
-  metadata:
-    name: container-security-operator-catalog
-    namespace: ${TARGET_NAMESPACE}
-  spec:
-    displayName: Container Security Operator
-    image: ${IMAGE}:${IMAGE_TAG}
-    publisher: AppSRE Team
-    sourceType: grpc
 - apiVersion: operators.coreos.com/v1
   kind: OperatorGroup
   metadata:
@@ -25,14 +15,10 @@ objects:
     name: container-security-operator
     namespace: ${TARGET_NAMESPACE}
   spec:
-    channel: alpha
+    channel: quay-v3.3
     name: container-security-operator
-    source: container-security-operator-catalog
-    sourceNamespace: ${TARGET_NAMESPACE}
+    source: redhat-operators
+    sourceNamespace: openshift-marketplace
 parameters:
-- name: IMAGE
-  value: quay.io/app-sre/container-security-operator
-- name: IMAGE_TAG
-  value: latest
 - name: TARGET_NAMESPACE
   value: container-security-operator
